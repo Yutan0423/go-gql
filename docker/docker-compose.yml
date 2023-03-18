@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    ports:
+     - "8080:8080"
+    volumes:
+      - ../app:/app
+    tty: true
+    networks:
+      - magixcript_network
+  
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0.27
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init.d:/docker-entrypoint-initdb.d
+      - ./mysql/mysql-data:/var/lib/mysqlql/data
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    restart: always
+    user: root
+    networks:
+      - magixcript_network
+      
+volumes:
+  mysql-data:
+    name: mysql-volume
+
+networks:
+  magixcript_network:
+    external: true
+

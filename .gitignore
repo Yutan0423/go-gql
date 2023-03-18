@@ -1,0 +1,4 @@
+.env
+tmp
+docker/docker
+docker/mysql
