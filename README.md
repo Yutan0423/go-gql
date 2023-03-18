@@ -8,6 +8,8 @@
 
 ## How to use
 
+Please type the following query.
+
 ```
 query {
   todos {
@@ -20,8 +22,6 @@ query {
   }
 }
 ```
-
-Please query the following.
 
 ```
 mutation {
