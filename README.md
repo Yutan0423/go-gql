@@ -8,34 +8,21 @@
 
 ## How to use
 
-Please type the following query.
+Please query the following.
 
 ```
 query {
-  todos {
+  user(name: "hsaki") {
     id
-    text
-    done
-    user {
-      name
-    }
+    name
   }
 }
 ```
 
+Headers
+
 ```
-mutation {
-  createTodo(input: {
-    text: "実用Go言語最後まで"
-    userId: "1"
-  }){
-    id
-    text
-    done
-    user {
-      id
-      name
-    }
-  }
+{
+  "Authorization": "UT_hsaki"
 }
 ```

@@ -1,18 +1,22 @@
 dev:
-	@cd docker && docker-compose up -d --build
+	@cd docker && docker-compose up --build
 
-db-exec:
+db_exec:
 	@cd docker && docker-compose exec mysql /bin/bash
 	# mysql -u user -ppassword
 
 down:
 	@cd docker && docker-compose down --remove-orphans
 
-gql_generate:
+gqlgen:
 	@cd app && gqlgen
 
 sqlc_generate:
 	@cd app && sqlc generate
+
+# db起動中に実行
+migrate:
+	@cd app && dbmate up
 
 tidy:
 	@cd app && go mod tidy
