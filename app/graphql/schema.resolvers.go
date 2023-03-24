@@ -6,43 +6,29 @@ package graphql
 
 import (
 	"context"
+	"fmt"
 	"go-gql/graphql/model"
+	"go-gql/services"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	return &model.Todo{
-		ID:   "TODO-3",
-		Text: input.Text,
-		User: &model.User{
-			ID:   input.UserID,
-			Name: "name",
-		},
-	}, nil
+// AddProjectV2ItemByID is the resolver for the addProjectV2ItemById field.
+func (r *mutationResolver) AddProjectV2ItemByID(ctx context.Context, input model.AddProjectV2ItemByIDInput) (*model.AddProjectV2ItemByIDPayload, error) {
+	panic(fmt.Errorf("not implemented: AddProjectV2ItemByID - addProjectV2ItemById"))
 }
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	return []*model.Todo{
-		{
-			ID:   "TODO-1",
-			Text: "My Todo 1",
-			User: &model.User{
-				ID:   "User-1",
-				Name: "hsaki",
-			},
-			Done: true,
-		},
-		{
-			ID:   "TODO-2",
-			Text: "My Todo 2",
-			User: &model.User{
-				ID:   "User-1",
-				Name: "hsaki",
-			},
-			Done: false,
-		},
-	}, nil
+// Repository is the resolver for the repository field.
+func (r *queryResolver) Repository(ctx context.Context, name string, owner string) (*model.Repository, error) {
+	panic(fmt.Errorf("not implemented: Repository - repository"))
+}
+
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, name string) (*model.User, error) {
+	return services.GetUserByName(ctx, name)
+}
+
+// Node is the resolver for the node field.
+func (r *queryResolver) Node(ctx context.Context, id string) (model.Node, error) {
+	panic(fmt.Errorf("not implemented: Node - node"))
 }
 
 // Mutation returns MutationResolver implementation.

@@ -15,7 +15,7 @@ resolver:
   package: graphql
 
 autobind:
-#  - "go-gql/graph/model"
+#  - "go-gql/graphql/model"
 
 models:
   ID:
