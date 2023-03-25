@@ -15,8 +15,8 @@ func convertUser(user repository.FetchUserByNameRow) *model.User {
 }
 
 func GetUserByName(ctx context.Context, name string) (*model.User, error) {
-	Db := repository.New(repository.Db)
-	user, err := Db.FetchUserByName(ctx, name)
+	db := repository.New(repository.Db)
+	user, err := db.FetchUserByName(ctx, name)
 	if err != nil {
 		log.Fatalf("failed to fetch user by name: %v", err)
 	}

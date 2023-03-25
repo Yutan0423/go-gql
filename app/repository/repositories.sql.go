@@ -8,6 +8,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"time"
 )
 
 const addTestRepository = `-- name: AddTestRepository :execresult
@@ -17,4 +18,35 @@ INSERT INTO repositories(id, owner, name) VALUES
 
 func (q *Queries) AddTestRepository(ctx context.Context) (sql.Result, error) {
 	return q.db.ExecContext(ctx, addTestRepository)
+}
+
+const getRepoByFullName = `-- name: GetRepoByFullName :one
+SELECT id, name, owner, created_at
+FROM repositories
+WHERE name = ?
+AND owner = ?
+`
+
+type GetRepoByFullNameParams struct {
+	Name  string
+	Owner string
+}
+
+type GetRepoByFullNameRow struct {
+	ID        string
+	Name      string
+	Owner     string
+	CreatedAt time.Time
+}
+
+func (q *Queries) GetRepoByFullName(ctx context.Context, arg GetRepoByFullNameParams) (GetRepoByFullNameRow, error) {
+	row := q.db.QueryRowContext(ctx, getRepoByFullName, arg.Name, arg.Owner)
+	var i GetRepoByFullNameRow
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Owner,
+		&i.CreatedAt,
+	)
+	return i, err
 }

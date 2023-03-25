@@ -2,6 +2,6 @@ package usecases
 
 import "context"
 
-type userService interface {
+type UserService interface {
 	GetUserByName(ctx context.Context, name string)
 }
