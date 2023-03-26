@@ -20,3 +20,6 @@ migrate:
 
 tidy:
 	@cd app && go mod tidy
+
+test:
+	@cd app && go test -v ./...

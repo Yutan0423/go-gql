@@ -13,3 +13,11 @@ SELECT
 FROM users
 WHERE name = ?
 LIMIT 1;
+
+-- name: FetchUserByID :one
+SELECT
+  id,
+  name
+FROM users
+WHERE id = ?
+LIMIT 1;

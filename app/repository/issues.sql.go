@@ -20,3 +20,29 @@ INSERT INTO issues(id, url, title, closed, number, repository) VALUES
 func (q *Queries) AddTestIssues(ctx context.Context) (sql.Result, error) {
 	return q.db.ExecContext(ctx, addTestIssues)
 }
+
+const getIssueByRepoAndNumber = `-- name: GetIssueByRepoAndNumber :one
+SELECT id, url, title, closed, number, repository
+FROM issues
+WHERE repository = ?
+AND number = ?
+`
+
+type GetIssueByRepoAndNumberParams struct {
+	Repository string
+	Number     int32
+}
+
+func (q *Queries) GetIssueByRepoAndNumber(ctx context.Context, arg GetIssueByRepoAndNumberParams) (Issue, error) {
+	row := q.db.QueryRowContext(ctx, getIssueByRepoAndNumber, arg.Repository, arg.Number)
+	var i Issue
+	err := row.Scan(
+		&i.ID,
+		&i.Url,
+		&i.Title,
+		&i.Closed,
+		&i.Number,
+		&i.Repository,
+	)
+	return i, err
+}

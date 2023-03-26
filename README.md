@@ -26,3 +26,22 @@ Headers
   "Authorization": "UT_hsaki"
 }
 ```
+
+try this.
+
+```
+query {
+  repository(name: "repo1", owner: "hsaki"){
+    id
+    name
+    createdAt
+    owner {
+      name
+    }
+    issue(number:2) {
+      title
+    }
+  }
+}
+
+```

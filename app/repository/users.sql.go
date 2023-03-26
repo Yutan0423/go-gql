@@ -47,6 +47,27 @@ func (q *Queries) FetchUser(ctx context.Context) ([]User, error) {
 	return items, nil
 }
 
+const fetchUserByID = `-- name: FetchUserByID :one
+SELECT
+  id,
+  name
+FROM users
+WHERE id = ?
+LIMIT 1
+`
+
+type FetchUserByIDRow struct {
+	ID   string
+	Name string
+}
+
+func (q *Queries) FetchUserByID(ctx context.Context, id string) (FetchUserByIDRow, error) {
+	row := q.db.QueryRowContext(ctx, fetchUserByID, id)
+	var i FetchUserByIDRow
+	err := row.Scan(&i.ID, &i.Name)
+	return i, err
+}
+
 const fetchUserByName = `-- name: FetchUserByName :one
 SELECT
   id,
